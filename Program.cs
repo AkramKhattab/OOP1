@@ -58,3 +58,29 @@ class Program
 
 
 #endregion
+
+#region Encapsulation using Properties
+// Properties provide a flexible mechanism to read, write, or compute the values of private fields.
+
+public class Person
+{
+    private string name;
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Person person = new Person();
+        person.Name = "John";
+        Console.WriteLine(person.Name);  // Output: John
+    }
+}
+
+
+#endregion
