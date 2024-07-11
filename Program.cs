@@ -111,3 +111,45 @@ class Program
 
 
 #endregion
+
+#region Class - Internal Constructor Chaining
+// Constructor chaining is the process of one constructor calling another constructor within the same class.
+
+public class Employee
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    public Employee() : this("Unknown", 0) { }
+
+    public Employee(string name) : this(name, 0) { }
+
+    public Employee(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine($"Name: {Name}, Age: {Age}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Employee emp1 = new Employee();
+        emp1.Display();  // Output: Name: Unknown, Age: 0
+
+        Employee emp2 = new Employee("Alice");
+        emp2.Display();  // Output: Name: Alice, Age: 0
+
+        Employee emp3 = new Employee("Bob", 30);
+        emp3.Display();  // Output: Name: Bob, Age: 30
+    }
+}
+
+
+#endregion
