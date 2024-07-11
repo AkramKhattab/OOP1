@@ -1,4 +1,7 @@
-﻿namespace C42_G04_OOP1
+﻿using System.Diagnostics;
+using System.Globalization;
+
+namespace C42_G04_OOP1
 {
     class Program
     {
@@ -7,6 +10,8 @@
             // Uncomment the method calls as needed
             // Part01_CalculateDistance();
             // Part01_FindOldestPerson();
+            TestPart02();
+
         }
 
         #region Part 1 - Question 1: Create a struct called "Point" to represent a 2D point with properties "X" and "Y". Write a C# program that takes two points as input from the user and calculates the distance between them.
@@ -83,18 +88,18 @@
         */
         #endregion
 
-        #region Part 2 - Question 1: Design and implement a Class for the employees in a company.
+        #region Part 2 - Question 1 & 2 & 3 & 4 [ Design and implement a Class for the employees in a company ]
 
-        // Enum for security privileges
         public enum SecurityLevel
         {
             Guest,
             Developer,
             Secretary,
-            DBA
+            DBA,
+            SecurityOfficer
         }
 
-        // Class for Hire Date
+        // Question 2: Class for Hire Date
         public class HireDate : IComparable<HireDate>
         {
             public int Day { get; set; }
@@ -120,7 +125,7 @@
             public override string ToString() => $"{Day:00}/{Month:00}/{Year:0000}";
         }
 
-        // Class for Employee
+        // Question 3: Class for Employee
         public class Employee
         {
             public int ID { get; set; }
@@ -128,26 +133,66 @@
             public SecurityLevel SecurityLevel { get; set; }
             public decimal Salary { get; set; }
             public HireDate HireDate { get; set; }
-            public char Gender { get; set; }
-
-            public Employee(int id, string name, SecurityLevel securityLevel, decimal salary, HireDate hireDate, char gender)
-              : this(id, name, securityLevel, salary, hireDate) // Call another constructor for common initialization
+            private char gender;
+            public char Gender
             {
-                Gender = gender; // Validate and set gender in separate step
+                get => gender;
+                set
+                {
+                    if (value != 'M' && value != 'F')
+                        throw new ArgumentException("Gender must be 'M' or 'F'");
+                    gender = value;
+                }
             }
 
-            public Employee(int id, string name, SecurityLevel securityLevel, decimal salary, HireDate hireDate)
+            public Employee(int id, string name, SecurityLevel securityLevel, decimal salary, HireDate hireDate, char gender)
             {
                 ID = id;
                 Name = name;
                 SecurityLevel = securityLevel;
                 Salary = salary;
                 HireDate = hireDate;
+                Gender = gender;
             }
 
-            public override string ToString() => $"ID: {ID}, Name: {Name}, Security Level: {SecurityLevel}, Salary: {Salary:C}, Hire Date: {HireDate}, Gender: {Gender}";
+            public override string ToString()
+            {
+                return $"ID: {ID}, Name: {Name}, Security Level: {SecurityLevel}, Salary: {Salary.ToString("C", CultureInfo.CurrentCulture)}, Hire Date: {HireDate}, Gender: {Gender}";
+            }
         }
 
-        #endregion
+        // Question 4: Sort the employees based on their hire date then Print the sorted array
+
+
+        public static void TestPart02()
+        {
+            var hireDate1 = new HireDate(1, 1, 2020);
+            var employee1 = new Employee(1, "John Doe", SecurityLevel.Developer, 60000, hireDate1, 'M');
+
+            var hireDate2 = new HireDate(15, 5, 2019);
+            var employee2 = new Employee(2, "Jane Smith", SecurityLevel.DBA, 70000, hireDate2, 'F');
+
+            var hireDate3 = new HireDate(10, 10, 2018);
+            var employee3 = new Employee(3, "Alice Johnson", SecurityLevel.SecurityOfficer, 80000, hireDate3, 'F');
+
+            Employee[] employees = new Employee[] { employee1, employee2, employee3 };
+
+            Console.WriteLine("Employees before sorting:");
+            foreach (var employee in employees)
+            {
+                Console.WriteLine(employee);
+            }
+
+            Array.Sort(employees, (e1, e2) => e1.HireDate.CompareTo(e2.HireDate));
+
+            Console.WriteLine("\nEmployees after sorting by hire date:");
+            foreach (var employee in employees)
+            {
+                Console.WriteLine(employee);
+            }
+            #endregion
+            
+            // Boxing and Unboxing operations: 0 times.
+        }
     }
 }
