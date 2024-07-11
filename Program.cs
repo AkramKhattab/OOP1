@@ -1,46 +1,29 @@
-﻿using System;
-
-namespace C42_G04_OOP1
+﻿#region Struct
+// A struct is a value type in C# that is typically used for small data structures that contain primarily data.
+public struct Point
 {
-    class Program
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public Point(int x, int y)
     {
-        static void Main(string[] args)
-        {
-            // Call the method to calculate the distance between two points
-            Part01_CalculateDistance();
-        }
+        X = x;
+        Y = y;
+    }
 
-        #region Part 01 - Question 1: Calculate the distance between two points
-
-        public struct Point
-        {
-            public double X { get; set; }
-            public double Y { get; set; }
-
-            public Point(double x, double y)
-            {
-                X = x;
-                Y = y;
-            }
-
-            public double DistanceTo(Point other) =>
-                Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
-        }
-
-        public static void Part01_CalculateDistance()
-        {
-            Console.WriteLine("Enter the coordinates for Point 1 (x y): ");
-            var point1Input = Console.ReadLine().Split();
-            var point1 = new Point(double.Parse(point1Input[0]), double.Parse(point1Input[1]));
-
-            Console.WriteLine("Enter the coordinates for Point 2 (x y): ");
-            var point2Input = Console.ReadLine().Split();
-            var point2 = new Point(double.Parse(point2Input[0]), double.Parse(point2Input[1]));
-
-            var distance = point1.DistanceTo(point2);
-            Console.WriteLine($"The distance between the points is: {distance}");
-        }
-
-        #endregion
+    public void Display()
+    {
+        Console.WriteLine($"Point: ({X}, {Y})");
     }
 }
+
+class Program
+{
+    static void Main()
+    {
+        Point p = new Point(10, 20);
+        p.Display();  // Output: Point: (10, 20)
+    }
+}
+
+#endregion
