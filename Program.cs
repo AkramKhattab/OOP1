@@ -27,3 +27,34 @@ class Program
 }
 
 #endregion
+
+#region Encapsulation using Setter & Getter Methods
+// Encapsulation is the process of wrapping data and methods into a single unit, typically a class, and restricting access to some of the object's components.
+
+public class Person
+{
+    private string name;
+
+    public void SetName(string name)
+    {
+        this.name = name;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Person person = new Person();
+        person.SetName("John");
+        Console.WriteLine(person.GetName());  // Output: John
+    }
+}
+
+
+#endregion
