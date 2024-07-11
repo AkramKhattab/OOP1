@@ -1,22 +1,17 @@
-﻿using System;
-
-namespace C42_G04_OOP1
+﻿namespace C42_G04_OOP1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // Commented out the code for the first question
+            // Uncomment the method calls as needed
             // Part01_CalculateDistance();
-
-            // Call the method to find the oldest person
-            Part01_FindOldestPerson();
+            // Part01_FindOldestPerson();
         }
 
-        #region Part 1 - Question 1 : Create a struct called "Point" to represent a 2D point with properties "X" and "Y". Write a C# program that takes two points as input from the user and calculates the distance between them.
+        #region Part 1 - Question 1: Create a struct called "Point" to represent a 2D point with properties "X" and "Y". Write a C# program that takes two points as input from the user and calculates the distance between them.
 
         /*
-        
         public struct Point
         {
             public double X { get; set; }
@@ -46,10 +41,10 @@ namespace C42_G04_OOP1
             Console.WriteLine($"The distance between the points is: {distance}");
         }
         */
-
         #endregion
 
-        #region Part 1 - Question 2: .Create a struct called "Person" with properties "Name" and "Age". Write a C# program that takes details of 3 persons as input from the user and displays the name and age of the oldest person.
+        #region Part 1 - Question 2: Create a struct called "Person" with properties "Name" and "Age". Write a C# program that takes details of 3 persons as input from the user and displays the name and age of the oldest person.
+        /*
         public struct Person
         {
             public string Name { get; set; }
@@ -84,6 +79,73 @@ namespace C42_G04_OOP1
             }
 
             Console.WriteLine($"The oldest person is {oldest.Name} with age {oldest.Age}");
+        }
+        */
+        #endregion
+
+        #region Part 2 - Question 1: Design and implement a Class for the employees in a company.
+
+        // Enum for security privileges
+        public enum SecurityLevel
+        {
+            Guest,
+            Developer,
+            Secretary,
+            DBA
+        }
+
+        // Class for Hire Date
+        public class HireDate : IComparable<HireDate>
+        {
+            public int Day { get; set; }
+            public int Month { get; set; }
+            public int Year { get; set; }
+
+            public HireDate(int day, int month, int year)
+            {
+                Day = day;
+                Month = month;
+                Year = year;
+            }
+
+            public int CompareTo(HireDate other)
+            {
+                if (Year != other.Year)
+                    return Year.CompareTo(other.Year);
+                if (Month != other.Month)
+                    return Month.CompareTo(other.Month);
+                return Day.CompareTo(other.Day);
+            }
+
+            public override string ToString() => $"{Day:00}/{Month:00}/{Year:0000}";
+        }
+
+        // Class for Employee
+        public class Employee
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public SecurityLevel SecurityLevel { get; set; }
+            public decimal Salary { get; set; }
+            public HireDate HireDate { get; set; }
+            public char Gender { get; set; }
+
+            public Employee(int id, string name, SecurityLevel securityLevel, decimal salary, HireDate hireDate, char gender)
+              : this(id, name, securityLevel, salary, hireDate) // Call another constructor for common initialization
+            {
+                Gender = gender; // Validate and set gender in separate step
+            }
+
+            public Employee(int id, string name, SecurityLevel securityLevel, decimal salary, HireDate hireDate)
+            {
+                ID = id;
+                Name = name;
+                SecurityLevel = securityLevel;
+                Salary = salary;
+                HireDate = hireDate;
+            }
+
+            public override string ToString() => $"ID: {ID}, Name: {Name}, Security Level: {SecurityLevel}, Salary: {Salary:C}, Hire Date: {HireDate}, Gender: {Gender}";
         }
 
         #endregion
